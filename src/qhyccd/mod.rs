@@ -64,6 +64,7 @@ pub fn acquire(camera_idx: i32) -> Result<Camera> {
         }
         check(QHYCCDCam::SetQHYCCDStreamMode(handle, 0))?; // 0 means single frame mode...
         check(QHYCCDCam::InitQHYCCD(handle))?;
+        check(QHYCCDCam::CancelQHYCCDExposingAndReadout(handle))?;
         Ok(Camera {
             handle: handle
         })

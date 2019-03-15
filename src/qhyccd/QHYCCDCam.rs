@@ -115,6 +115,7 @@ extern "C" {
         imagew: *mut os::raw::c_int, imageh: *mut os::raw::c_int,
         pixelw: *mut os::raw::c_double, pixelh: *mut os::raw::c_double,
         bpp: *mut os::raw::c_int) -> os::raw::c_int;
+    pub fn CancelQHYCCDExposingAndReadout(handle: *mut os::raw::c_void) -> os::raw::c_int;
     pub fn ControlQHYCCDTemp(handle: *mut os::raw::c_void, target: os::raw::c_double) -> os::raw::c_int;
     pub fn SetQHYCCDDebayerOnOff(handle: *mut os::raw::c_void, onoff: os::raw::c_int) -> os::raw::c_int;
     pub fn SetQHYCCDBinMode(handle: *mut os::raw::c_void, wbin: os::raw::c_int, hbin: os::raw::c_int) -> os::raw::c_int;
