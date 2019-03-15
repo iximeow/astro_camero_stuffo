@@ -5,7 +5,7 @@
 #![allow(dead_code)]
 #![feature(alloc_layout_extra)]
 mod asicam;
-
+mod qhyccd;
 
 use crate::asicam::ASICamera2::{ControlType, ImageType};
 use crate::asicam::Camera;
@@ -15,7 +15,26 @@ fn main() {
 }
 
 fn operate_qhy() {
+    use crate::qhyccd::Control;
     println!("Operating on qhy camera ... or i'll die trying");
+    let mut camera = qhyccd::acquire(0).unwrap();
+    camera.set_exposure_ms(40000).unwrap();
+    camera.set_param(Control::Gain, 64.0).unwrap();
+    camera.set_param(Control::Offset, 00.0).unwrap();
+    camera.set_param(Control::USBTraffic, 250.0).unwrap();
+    camera.set_target_temp(0.0).unwrap();
+    camera.set_param(Control::Cooler, 0.0).unwrap();
+    println!("Binning modes:");
+    println!("1x1: {}", camera.has_param(Control::Bin1x1Mode));
+    println!("2x2: {}", camera.has_param(Control::Bin2x2Mode));
+    println!("3x3: {}", camera.has_param(Control::Bin3x3Mode));
+    println!("4x4: {}", camera.has_param(Control::Bin4x4Mode));
+//    camera.set_param(Control::Speed, 1.0).unwrap();
+    println!("current temp: {}", camera.get_param(Control::CurTemp));
+    camera.set_defaults().unwrap();
+//    camera.set_bin_mode(2).unwrap();
+    camera.take_image("../../asdf.png");
+    camera.release().unwrap();
 }
 
 fn operate_asi() {

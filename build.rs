@@ -21,4 +21,7 @@ fn main() {
     }
     println!("cargo:rustc-link-lib=ASICamera2");
     println!("cargo:rustc-link-lib=qhyccd");
+    // qhyccd needs libstdc++
+    println!("cargo:rustc-flags=-l dylib=stdc++");
+    println!("cargo:rustc-flags=-l dylib=usb-1.0");
 }
